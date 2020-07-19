@@ -105,4 +105,94 @@
     [*.{js,html,blade.php,css,scss}]
     indent_style = space
     indent_size = 2
-    ```   
+    ```
+### 3.3 静态页面
+  - 1.新建分支
+    ```
+    $ git checkout master
+    $ git checkout -b static-pages
+    ```
+    合并分支示例：
+    ```
+    $ git merge fake-branch
+    ```
+    删除分支示例：
+    ```
+    $ git branch -d fake-branch
+    ```
+  - 2.移除无用视图
+    ```
+    rm resources/views/welcome.blade.php
+    ```
+  - 3.配置路由 routes/web.php
+    ```
+    <?php
+
+    Route::get('/', 'StaticPagesController@home');
+    Route::get('/help', 'StaticPagesController@help');
+    Route::get('/about', 'StaticPagesController@about');
+    ```
+  - 4.生成静态页面控制器
+    ```
+    $ php artisan make:controller StaticPagesController
+    ```
+    app/Http/Controllers/StaticPagesController.php
+    ```
+    public function home()
+    {
+        return view('static_pages/home');
+    }
+
+    public function help()
+    {
+        return view('static_pages/help');
+    }
+
+    public function about()
+    {
+        return view('static_pages/about');
+    }
+    ```
+  - 5.使用通用视图 resources/views/layouts/default.blade.php
+    ```
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>@yield('title', 'Weibo App') - Laravel 新手入门教程</title>
+      </head>
+      <body>
+        @yield('content')
+      </body>
+    </html>
+    ```
+  - 6.添加静态页面视图  
+    resources/views/static_pages/home.blade.php
+    ```
+    @extends('layouts.default')
+    @section('content')
+      <h1>主页</h1>
+    @stop
+    ```
+    resources/views/static_pages/help.blade.php
+    ```
+    @extends('layouts.default')
+    @section('title', '帮助')
+
+    @section('content')
+      <h1>帮助页</h1>
+    @stop
+    ```
+    resources/views/static_pages/about.blade.php
+    ```
+    @extends('layouts.default')
+    @section('title', '关于')
+
+    @section('content')
+      <h1>关于页</h1>
+    @stop
+    ```
+  - 7.Git代码版本控制
+    ```
+    $ git add -A
+    $ git commit -m "3.3 基础页面 用用视图页面"
+    ```
