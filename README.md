@@ -83,3 +83,26 @@
     $ git remote add origin git@github.com:andy-love-coding/laravel1.6.git
     $ git push -u origin master
     ```
+  - 8.统一代码风格
+    .editorconfig
+    ```
+    root = true
+
+    [*]
+    charset = utf-8
+    end_of_line = lf
+    insert_final_newline = true
+    indent_style = space
+    indent_size = 4
+    trim_trailing_whitespace = true
+
+    [*.md]
+    trim_trailing_whitespace = false
+
+    [*.yml]
+    indent_size = 2
+
+    [*.{js,html,blade.php,css,scss}]
+    indent_style = space
+    indent_size = 2
+    ```   
